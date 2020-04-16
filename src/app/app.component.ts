@@ -25,8 +25,11 @@ import {Component,
     (click)="onButtonClick($event)"
 
     >{{(classObj["with-border"])?'hide':'show'}} button</button>
-    <app-hello *ngIf="isShowHello" [text]="title"></app-hello>
-    <input type="text" [(ngModel)]="this.title" >
+    <app-hello  [text]="title" (buttonClicked)="onChangeFromChildren($event)"></app-hello>
+
+    <br>
+    <h3>Hi component</h3>
+    <app-hi></app-hi>
   <!-- <app-hello></app-hello> -->
   `,
   styleUrls: ['./app.component.css']
@@ -51,8 +54,8 @@ export class AppComponent
   classObj={
     'with-border':this.withBorder
   }
-  setTittle(){
-
+  onChangeFromChildren(event){
+    this.title = event;
   }
 
   //Eventbinding
@@ -69,23 +72,23 @@ export class AppComponent
   }
   //life cycle
   ngOnInit():void{
-    console.log('OnInit')
+
   }
   ngOnChanges(changes:SimpleChanges):void{
-    console.log('OnChanges '+{changes})
+
   }
 
   ngOnDestroy():void{
-    console.log('OnDestroy')
+
   }
   ngAfterViewInit():void{
-    console.log('AfterViewInit')
+
   }
   ngAfterViewChecked():void{
-    console.log('AfterViewChecked')
+
   }
   ngAfterContentChecked():void{
-    console.log('AfterContentChecked')
+
   }
 
 

@@ -1,4 +1,8 @@
-import { Component, OnInit, OnChanges, OnDestroy, AfterViewInit, AfterViewChecked, AfterContentChecked, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy, AfterViewInit, AfterViewChecked, AfterContentChecked, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
+import { DataService } from 'src/app/service/data.service';
+
+
+
 
 @Component({
   selector: 'app-hello',
@@ -8,28 +12,40 @@ import { Component, OnInit, OnChanges, OnDestroy, AfterViewInit, AfterViewChecke
 export class HelloComponent
 implements OnInit, OnChanges, OnDestroy, AfterViewInit, AfterViewChecked, AfterContentChecked {
 
-  constructor() { }
-  
-  @Input() text:string
+  constructor(private _dataService: DataService) { }
 
+  @Input() text: string;
+  @Output() buttonClicked: EventEmitter<any> = new EventEmitter<any>();
+
+  onButtonClick(){
+    this.buttonClicked.emit("change from childrean");
+  }
+  setHiValue(){
+    this.text ='qweqweqw';
+    this._dataService.setTextFromHello(this.text);
+  }
+  // onButtonChildrenClick(){
+  //   this.text="children change"
+  // }
   ngOnInit(): void {
-    console.log('OnInit');
+    this._dataService.setTextFromHello(this.text);
   }
   ngOnChanges(changes: SimpleChanges):void{
-    console.log('OnChanges ',{changes});
+
   }
 
   ngOnDestroy():void{
-    console.log('OnDestroy');
+
   }
   ngAfterViewInit():void{
-    console.log('AfterViewInit');
+
   }
   ngAfterViewChecked():void{
-    console.log('AfterViewChecked');
+
+
   }
   ngAfterContentChecked():void{
-    console.log('AfterContentChecked');
+
   }
 
 }
